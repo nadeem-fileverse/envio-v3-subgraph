@@ -1,0 +1,108 @@
+enum AppEventType {
+  Mint
+  AddedCollaborator
+  RegisteredCollaboratorKeys
+  RemovedCollaboratorKeys
+  RemovedCollaborator
+  AddedFile
+  EditedFile
+  DeletedFile
+  OwnershipTransferStarted
+  OwnershipTransferred
+  UpdatedAppMetadata
+}
+
+type AppEvent {
+  id: Bytes!
+  by: Bytes! # address
+  appAddress: Bytes! # address
+  registryAddress: Bytes! # address
+  tokenId: BigInt!
+  metadataIPFSHash: String # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  eventType: AppEventType! # string
+  owner: Bytes! # address
+}
+
+type CollaboratorEvent {
+  id: Bytes!
+  account: Bytes! # address
+  did: String # string
+  by: Bytes! # address
+  appAddress: Bytes! # address
+  registryAddress: Bytes! # address
+  tokenId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  eventType: AppEventType! # string
+}
+
+type FileEvent {
+  id: Bytes!
+  appFileId: String! # string
+  rawAppFileId: String # string
+  fileId: BigInt! # uint256
+  metadataIPFSHash: String # string
+  contentIPFSHash: String # string
+  gateIPFSHash: String # string
+  by: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  fileType: String! # string
+  eventType: AppEventType! # string
+  appAddress: Bytes! # address
+  registryAddress: Bytes! # address
+  tokenId: BigInt!
+}
+
+type App {
+  id: Bytes!
+  appAddress: Bytes! # address
+  registryAddress: Bytes! # address
+  tokenId: BigInt!
+  metadataIPFSHash: String # string
+  owner: Bytes! # address
+  by: Bytes! # address
+  lastTransactionHash: Bytes!
+  lastTransactionBlockNumber: BigInt!
+  lastTransactionBlockTimestamp: BigInt!
+}
+
+type Collaborator {
+  id: Bytes!
+  account: Bytes! # address
+  did: String # string
+  by: Bytes! # address
+  isDeleted: Boolean!
+  deletedBy: Bytes # address
+  lastTransactionHash: Bytes!
+  lastTransactionBlockNumber: BigInt!
+  lastTransactionBlockTimestamp: BigInt!
+  appAddress: Bytes! # address
+  registryAddress: Bytes! # address
+  tokenId: BigInt!
+}
+
+type File {
+  id: Bytes!
+  fileId: BigInt! # uint256
+  appFileId: String! # string
+  rawAppFileId: String # string
+  metadataIPFSHash: String # string
+  contentIPFSHash: String # string
+  gateIPFSHash: String # string
+  fileType: String! # string
+  appAddress: Bytes! # address
+  registryAddress: Bytes! # address
+  tokenId: BigInt!
+  by: Bytes! # address
+  editedBy: Bytes! # address
+  isDeleted: Boolean!
+  lastTransactionHash: Bytes!
+  lastTransactionBlockNumber: BigInt!
+  lastTransactionBlockTimestamp: BigInt!
+}

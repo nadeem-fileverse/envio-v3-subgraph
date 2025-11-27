@@ -1,0 +1,60 @@
+name: fileverse-apps-indexer
+raw_events: true
+preload_handlers: true
+networks:
+  - id: 100
+    start_block: 42309834
+    contracts:
+      - name: AppRegistry
+        abi_file_path: ./abis/AppRegistry.json
+        address: 0xdb0def9f0992e68d7170e15c4788ff62a0210ca1
+        handler: src/EventHandlers.ts
+        events:
+          - event: Mint(address indexed app,uint256 indexed tokenId,address indexed account)
+            field_selection:
+              transaction_fields:
+                - hash
+      - name: App
+        abi_file_path: ./abis/App.json
+        handler: src/EventHandlers.ts
+        events:
+          - event: UpdatedAppMetadata(string metadataIPFSHash,address indexed by)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: OwnershipTransferStarted(address indexed previousOwner,address indexed newOwner)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: OwnershipTransferred(address indexed previousOwner,address indexed newOwner)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: AddedFile(uint256 indexed fileId,string rawAppFileId,uint8 fileType,string metadataIPFSHash,string contentIPFSHash,string gateIPFSHash,uint256 indexed tokenId,address indexed by)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: EditedFile(uint256 indexed fileId,string rawAppFileId,uint8 fileType,string metadataIPFSHash,string contentIPFSHash,string gateIPFSHash,uint256 indexed tokenId,address indexed by)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: DeletedFile(uint256 indexed fileId,string rawAppFileId,address indexed by)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: AddedCollaborator(address indexed account,address indexed by)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: RegisteredCollaboratorKeys(address indexed account,string did)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: RemovedCollaboratorKeys(address indexed account)
+            field_selection:
+              transaction_fields:
+                - hash
+          - event: RemovedCollaborator(address indexed account,address indexed by)
+            field_selection:
+              transaction_fields:
+                - hash
