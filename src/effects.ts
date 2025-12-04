@@ -9,8 +9,8 @@ import { OnChainAppInfo, OnChainFile } from "./type";
 const publicClient = createPublicClient({
   chain: gnosis,
   transport: fallback([
-    http(process.env.RPC_URL as string),
-    http(process.env.RPC_URL_2 as string),
+    http(process.env.ENVIO_RPC_URL as string),
+    http(process.env.ENVIO_RPC_URL_2 as string),
   ]),
   batch: { multicall: true },
 });
